@@ -1,9 +1,11 @@
 # Architecture-Diagrams
 This repository contains PlantUML diagrams used in the architecture documents of the project.
 
-How to View Diagrams
+# How to view diagrams
 Install PlantUML: https://plantuml.com/download
+
 Open any .puml file in the repository with PlantUML to view the corresponding diagram.
+
 Optionally, you can use a PlantUML editor like PlantText or Visual Studio Code with PlantUML extension for a better viewing experience.
 
 # Diagrams
@@ -11,7 +13,9 @@ Optionally, you can use a PlantUML editor like PlantText or Visual Studio Code w
 List all the diagrams and their purpose here:
 
 component_diagram.puml: Shows the high-level components of the system.
+
 sequence_diagram.puml: Shows the sequence of actions in a particular use case.
+
 class_diagram.puml: Shows the classes and their relationships in the system.
 ...
 
