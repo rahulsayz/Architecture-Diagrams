@@ -17,6 +17,7 @@ component_diagram.puml: Shows the high-level components of the system.
 sequence_diagram.puml: Shows the sequence of actions in a particular use case.
 
 class_diagram.puml: Shows the classes and their relationships in the system.
+
 ...
 
 # contributing
