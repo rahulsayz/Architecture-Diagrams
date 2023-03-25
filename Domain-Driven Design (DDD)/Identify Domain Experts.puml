@@ -1,0 +1,14 @@
+@startuml
+title Identify Domain Experts
+
+scale 1.5
+skinparam Shadowing true
+skinparam linetype ortho
+
+rectangle "Deep understanding of the business domain" as D #LightSkyBlue
+rectangle ""Accurately reflect real-world concepts and processes" as A #Darkorange
+
+D --> A
+
+
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+title Examples of When DDD May Be Appropriate
+scale 1.5
+skinparam Shadowing true
+skinparam linetype ortho
+
+rectangle "Complex and poorly understood business domain" as C #LightSkyBlue
+rectangle Finance #DeepPink
+rectangle Healthcare #Darkorange
+rectangle Logistics #LightGreen
+rectangle "Multiple teams working on the same codebase" as M #LightSeaGreen
+circle "Clear boundaries between domains" as Clear #aqua
+C --> Finance
+C --> Healthcare
+C --> Logistics
+M --> Clear
+
+@enduml

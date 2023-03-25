@@ -1,0 +1,14 @@
+@startuml
+title Improved Code Organization
+scale 1.5
+skinparam Shadowing true
+skinparam linetype ortho
+
+rectangle "Cleaner, more modular code" as C #LightSkyBlue
+rectangle "Easier to understand" as U #Darkorange
+rectangle "Easier to maintain" as M #LightGreen
+
+C --> U
+U --> M
+
+@enduml

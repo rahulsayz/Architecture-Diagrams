@@ -1,0 +1,41 @@
+@startuml
+
+scale 2
+left to right direction
+skinparam linetype ortho
+
+entity Order {
+  * OrderId
+  --
+  *CustomerId
+  *OrderDate
+}
+
+entity Customer {
+  * CustomerId
+  --
+  *FirstName
+  *LastName
+  *Email
+}
+
+entity Product {
+  * ProductId
+  --
+  *ProductName
+  *ProductDescription
+  *UnitPrice
+}
+
+entity OrderItem {
+  * OrderItemId
+  --
+  *OrderId
+  *ProductId
+  *Quantity
+}
+
+Order --* Customer : places
+Order --* OrderItem : contains
+OrderItem --* Product : includes
+@enduml

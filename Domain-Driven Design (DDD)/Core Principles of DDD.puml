@@ -1,0 +1,20 @@
+@startuml
+title Core Principles of DDD
+scale 1.5
+skinparam Shadowing true
+skinparam linetype ortho
+
+rectangle "Focus on the business domain" as F #LightSkyBlue
+rectangle "Ubiquitous Language" as U #Darkorange
+rectangle "Bounded Contexts" as B #aqua
+rectangle "Entities, Value Objects, and Aggregates" as E #DeepPink
+rectangle "Domain Events" as DE #DeepSkyBlue
+rectangle "Domain Services" as DS #LightGreen
+
+F --> U
+B --> U
+E --> B
+DE --> B
+DS -l-> B
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+title Excessive Complexity
+
+scale 1.5
+skinparam Shadowing true
+skinparam linetype ortho
+
+rectangle "Excessive complexity in the domain models" as E #LightSkyBlue
+rectangle Maintainability #Darkorange
+rectangle Simplicity #LightGreen
+
+E --> Maintainability
+E --> Simplicity
+
+
+@enduml

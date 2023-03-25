@@ -1,0 +1,63 @@
+@startuml
+title DDD-Based Deployment Diagram
+scale 2
+
+skinparam linetype ortho
+skinparam shadowing true
+
+node "Load Balancer" {
+  component "UI" as UI1 #LightGreen
+  component "UI" as UI2 #LightGreen
+  component "UI" as UI3 #LightGreen
+}
+
+node "Application Servers" {
+  component "Command Service" as Cmd1 #Darkorange
+  component "Command Service" as Cmd2 #Darkorange
+  component "Command Service" as Cmd3 #Darkorange
+  component "Query Service" as Qry1 #Darkorange
+  component "Query Service" as Qry2 #Darkorange
+  component "Query Service" as Qry3 #Darkorange
+  component "Event Service" as Evnt1 #Darkorange
+  component "Event Service" as Evnt2 #Darkorange
+  component "Event Service" as Evnt3 #Darkorange
+}
+
+node "Database Servers" {
+  component "Relational DB" as DB1 #LightSkyBlue
+  component "Relational DB" as DB2 #LightSkyBlue
+  component "Relational DB" as DB3 #LightSkyBlue
+  component "Event Store DB" as ES1 #LightSkyBlue
+  component "Event Store DB" as ES2 #LightSkyBlue
+  component "Event Store DB" as ES3 #LightSkyBlue
+}
+
+UI1 --> Cmd1
+UI2 --> Cmd2
+UI3 --> Cmd3
+
+UI1 --> Qry1
+UI2 --> Qry2
+UI3 --> Qry3
+
+Cmd1 --> DB1
+Cmd2 --> DB2
+Cmd3 --> DB3
+
+Qry1 --> DB1
+Qry2 --> DB2
+Qry3 --> DB3
+
+Evnt1 --> ES1
+Evnt2 --> ES2
+Evnt3 --> ES3
+
+Cmd1 --> Evnt1
+Cmd2 --> Evnt2
+Cmd3 --> Evnt3
+
+Evnt1 --> DB1
+Evnt2 --> DB2
+Evnt3 --> DB3
+
+@enduml

@@ -1,0 +1,52 @@
+@startuml
+title DDD-Based System Architecture
+
+
+skinparam linetype ortho
+skinparam shadowing true
+
+interface UI #DeepPink
+
+package Application {
+  interface CommandService #LightSkyBlue
+  interface QueryService #LightSkyBlue
+  interface EventService #LightSkyBlue
+  package Domain {
+    interface Repository #Orange
+    interface Factory #Orange
+    interface Entity #Orange
+    interface ValueObject #Orange
+    interface DomainEvent #Orange
+    package Model {
+      interface Aggregate #Green
+      interface DomainService #Green
+    }
+  }
+  package Infrastructure {
+    interface Persistence #Aqua
+    interface EventStore #Aqua
+    interface MessageQueue #Aqua
+    interface ServiceProxy #Aqua
+    interface Notification #Aqua
+  }
+}
+
+UI --> CommandService
+UI --> QueryService
+EventService --> Notification
+
+CommandService --> Domain.Repository
+CommandService --> Domain.Factory
+QueryService --> Domain.Repository
+Domain.Repository --> Domain.Entity #Orange
+Domain.Repository --> Domain.ValueObject #Orange
+Domain.Repository --> Domain.DomainEvent #Orange
+Domain.Entity --> Domain.Model.Aggregate #Green
+Domain.Factory --> Domain.Model.Aggregate #Green
+Domain.DomainEvent --> EventService
+Domain.Model.Aggregate --> Domain.Model.DomainService #Green
+Infrastructure.Persistence --> Domain.Repository
+Infrastructure.EventStore --> EventService
+Infrastructure.MessageQueue --> EventService
+Infrastructure.ServiceProxy --> CommandService
+@enduml

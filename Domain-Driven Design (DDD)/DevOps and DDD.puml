@@ -1,0 +1,18 @@
+@startuml
+title DevOps and DDD
+
+scale 1.5
+skinparam Shadowing true
+skinparam linetype ortho
+
+rectangle "Rapid deployment" as R #LightSkyBlue
+rectangle "Continuous delivery" as C #Darkorange
+rectangle "Smaller, more manageable domains" as S #LightGreen
+rectangle "Less risk" as L #DeepPink
+
+S --> R
+S --> C
+L --> R
+L --> C
+
+@enduml

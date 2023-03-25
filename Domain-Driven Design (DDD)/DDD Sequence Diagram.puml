@@ -1,0 +1,57 @@
+@startuml
+title DDD-Based System Sequence Diagram
+
+actor User #Darkorange
+
+boundary UI #DeepPink
+control CommandController #LightSkyBlue
+control EventController #LightSkyBlue
+control QueryController #LightSkyBlue
+entity CommandService #LightGreen
+entity QueryService #LightGreen
+entity EventService #LightGreen
+entity Notification #Darkorange
+
+
+User -> UI: SubmitOrder(order)
+activate UI #DeepPink
+
+UI -> CommandController: execute(command)
+activate CommandController #LightSkyBlue
+CommandController -> CommandService: execute(command)
+activate CommandService #LightGreen
+CommandService -> Domain.Factory: create(order)
+activate Domain.Factory #aqua
+Domain.Factory -> Domain.Model.Aggregate: new(order)
+activate Domain.Model.Aggregate #aqua
+Domain.Model.Aggregate -> Domain.Repository: save(aggregate)
+activate Domain.Repository #aqua
+Domain.Repository --> Domain.Model.Aggregate: id
+deactivate Domain.Repository 
+Domain.Model.Aggregate --> CommandService: id
+deactivate Domain.Model.Aggregate
+Domain.Factory --> CommandService: Aggregate
+deactivate Domain.Factory
+CommandService -> EventService: publish(orderCreatedEvent)
+activate EventService #LightGreen
+EventService -> Notification: send(orderCreatedEvent)
+activate Notification #Darkorange
+Notification --> EventService: Sent
+deactivate Notification
+EventService --> CommandService: Published
+deactivate EventService
+CommandService --> QueryController: queryResult
+deactivate CommandService
+QueryController -> QueryService: execute(query)
+activate QueryService #LightGreen
+QueryService -> Domain.Repository: getById(id)
+activate Domain.Repository #aqua
+Domain.Repository --> QueryService: Entity
+deactivate Domain.Repository
+QueryService --> QueryController: Result
+deactivate QueryService
+QueryController --> UI: OrderCreated(id)
+deactivate QueryController
+UI --> User: DisplayConfirmation(id)
+deactivate UI
+@enduml

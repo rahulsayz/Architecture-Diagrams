@@ -1,0 +1,156 @@
+@startuml
+scale 2
+!define ClassBackgroundColor #LightSkyBlue
+!define ClassBorderColor #000000
+!define InterfaceBorderColor #000000
+!define ArrowThickness 2
+!define ArrowColor #000000
+
+skinparam linetype ortho
+skinparam shadowing true
+
+skinparam class {
+  BorderColor ClassBorderColor
+  BackgroundColor ClassBackgroundColor
+}
+
+skinparam interface {
+  BorderColor InterfaceBorderColor
+  BackgroundColor InterfaceBackgroundColor
+}
+
+title DDD-Based System Class Diagram
+
+interface UI #DeepPink
+
+class CommandController {
+    - commandService: CommandService
+    + execute(command): void
+}
+
+class QueryController {
+    - queryService: QueryService
+    + execute(query): Object
+}
+
+class EventController {
+    - eventService: EventService
+    + publish(event): void
+}
+
+interface CommandService #LightGreen{
+    + execute(command): void
+}
+
+interface QueryService #LightGreen{
+    + execute(query): Object
+}
+
+interface EventService #LightGreen{
+    + publish(event): void
+}
+
+class Repository {
+    - persistence: Persistence
+    + getById(id): Entity
+    + save(entity): void
+    + delete(entity): void
+}
+
+class Factory {
+    + create(params): Entity
+}
+
+class Entity {
+    - id: UUID
+    + getId(): UUID
+    + equals(other): boolean
+}
+
+class ValueObject {
+    + equals(other): boolean
+}
+
+class DomainEvent {
+    - id: UUID
+    - createdAt: DateTime
+    + getId(): UUID
+    + getCreatedAt(): DateTime
+}
+
+class Aggregate {
+    - id: UUID
+    - version: int
+    + getId(): UUID
+    + getVersion(): int
+}
+
+class DomainService {
+    + execute(params): Object
+}
+
+class Persistence {
+    + getById(id): Entity
+    + save(entity): void
+    + delete(entity): void
+}
+
+class EventStore {
+    + save(event): void
+    + getAll(): List<DomainEvent>
+}
+
+class MessageQueue {
+    + push(message): void
+    + pull(): Message
+}
+
+class ServiceProxy {
+    + execute(params): Object
+}
+
+class Notification {
+    + send(notification): void
+}
+
+UI -> CommandController
+UI -> QueryController
+UI -> EventController
+
+CommandController --> CommandService
+QueryController --> QueryService
+EventController --> EventService
+
+CommandService --> Repository
+QueryService --> Repository
+Repository --> Entity
+Repository --> ValueObject
+Repository --> DomainEvent
+Entity --> Aggregate
+Repository --> Factory
+Factory --> Aggregate
+DomainEvent --> EventService
+Aggregate --> DomainService
+
+Repository --> Persistence
+EventService --> EventStore
+EventService --> MessageQueue
+CommandService --> ServiceProxy
+EventService --> Notification
+
+class Persistence {
+  + save(entity: Entity): void
+  + delete(entity: Entity): void
+  + findById(id: ID): Entity
+  + findAll(): Collection<Entity>
+}
+
+interface Repository #LightGreen{
+  + save(entity: Entity): void
+  + delete(entity: Entity): void
+  + findById(id: ID): Entity
+  + findAll(): Collection<Entity>
+}
+
+Persistence --> Repository : implements
+@enduml

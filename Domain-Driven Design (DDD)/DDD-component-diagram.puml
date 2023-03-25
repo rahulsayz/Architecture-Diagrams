@@ -1,0 +1,75 @@
+@startuml
+title DDD-Based System Architecture
+
+scale 2
+'skinparam shadowing true
+skinparam linetype ortho
+
+skinparam interface {
+  backgroundColor RosyBrown
+  borderColor orange
+}
+
+skinparam component {
+  FontSize 13
+  BackgroundColor<<Apache>> LightCoral
+  BorderColor<<Apache>> #FF6655
+  FontName Courier
+  BorderColor black
+  BackgroundColor gold
+  ArrowFontName Impact
+  ArrowColor #FF6655
+  ArrowFontColor #777777
+}
+
+package Application {
+  [CommandService]
+  [QueryService]
+  [EventService]
+
+  package Domain {
+    [Repository]
+    [Factory]
+    [Entity]
+    [ValueObject]
+    [DomainEvent]
+
+    package Model {
+      [Aggregate]
+      [DomainService]
+    }
+  }
+
+  package Infrastructure {
+    [Persistence]
+    [EventStore]
+    [MessageQueue]
+    [ServiceProxy]
+    [Notification]
+  }
+}
+
+package UI {
+  [User Interface]
+}
+
+[User Interface] --> [CommandService]
+[User Interface] --> [QueryService]
+[EventService] --> [Notification]
+
+[CommandService] --> [Repository]
+[CommandService] --> [Factory]
+[QueryService] --> [Repository]
+[Repository] --> [Entity]
+[Repository] --> [ValueObject]
+[Repository] --> [DomainEvent]
+[Entity] --> [Aggregate]
+[Factory] --> [Aggregate]
+[DomainEvent] --> [EventService]
+[Aggregate] --> [DomainService]
+[Infrastructure.Persistence] --> [Repository]
+[Infrastructure.EventStore] --> [EventService]
+[Infrastructure.MessageQueue] --> [EventService]
+[Infrastructure.ServiceProxy] --> [CommandService]
+
+@enduml

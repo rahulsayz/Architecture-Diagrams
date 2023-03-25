@@ -1,0 +1,14 @@
+@startuml
+title Establish Clear Boundaries Between Domains
+scale 1.5
+skinparam Shadowing true
+skinparam linetype ortho
+
+rectangle "Clear boundaries between domains" as C #LightSkyBlue
+rectangle "Defining contexts and subdomains" as D #Darkorange
+rectangle "Well-defined responsibility for each domain" as W #LightGreen
+
+C --> D
+C --> W
+
+@enduml
